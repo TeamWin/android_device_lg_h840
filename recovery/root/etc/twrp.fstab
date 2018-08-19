@@ -1,0 +1,15 @@
+/boot		emmc	/dev/block/bootdevice/by-name/boot
+/recovery	emmc	/dev/block/bootdevice/by-name/recovery	flags=backup=1
+/system		ext4	/dev/block/bootdevice/by-name/system
+/system_image	emmc	/dev/block/bootdevice/by-name/system	flags=backup=0
+/data		ext4	/dev/block/bootdevice/by-name/userdata	flags=encryptable=/dev/block/bootdevice/by-name/encrypt
+/userdata		ext4	/dev/block/bootdevice/by-name/userdata	flags=backup=1;display="User Data";encryptable=/dev/block/bootdevice/by-name/encrypt
+/cache		ext4	/dev/block/bootdevice/by-name/cache
+/misc		emmc	/dev/block/bootdevice/by-name/misc	flags=backup=1;display="Misc"
+/frp		emmc	/dev/block/bootdevice/by-name/config	flags=backup=1;display="Frp"
+/dsp		ext4	/dev/block/bootdevice/by-name/config	flags=backup=1;display="Dsp"
+/firmware	vfat	/dev/block/bootdevice/by-name/modem	flags=display="Firmware";mounttodecrypt
+/persist	emmc	/dev/block/bootdevice/by-name/persist	flags=display="Persist";flashimg=1
+/persist-lg	emmc	/dev/block/bootdevice/by-name/drm	flags=mounttodecrypt
+/external_sd	auto	/dev/block/mmcblk1p1 /dev/block/mmcblk1	flags=display="microSD Card";storage;wipeingui;removable;encryptable=/dev/block/bootdevice/by-name/encrypt
+/usb-otg	auto	/dev/block/sda1 /dev/block/sda		flags=display="USB-OTG";storage;wipeingui;removable

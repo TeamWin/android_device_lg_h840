@@ -1,0 +1,34 @@
+on boot
+    # save battery by switching to interactive once booted
+    write /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor interactive
+    write /sys/devices/system/cpu/cpu4/cpufreq/scaling_governor interactive
+
+on fs
+    wait /dev/block/platform/soc.0/7824900.sdhci
+    symlink /dev/block/platform/soc.0/7824900.sdhci /dev/block/bootdevice
+
+    # needed to make qseecomd work in recovery
+    chmod 0660 /dev/qseecom
+    chown system drmrpc /dev/qseecom
+    chmod 0664 /dev/ion
+    chown system system /dev/ion
+
+on property:ro.crypto.state=encrypted
+    start qseecom
+
+on property:init.svc.recovery=running
+    start fixyear
+
+service qseecom /sbin/sh /sbin/qseecom.sh
+    oneshot
+    disabled
+    user root
+    group root
+    seclabel u:r:recovery:s0
+
+service fixyear /sbin/sh /sbin/fixyear.sh
+    oneshot
+    disabled
+    user root
+    group root
+    seclabel u:r:recovery:s0

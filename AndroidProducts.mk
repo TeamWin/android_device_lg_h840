@@ -1,2 +1,1 @@
-PRODUCT_MAKEFILES := \
-    $(LOCAL_DIR)/omni_h840.mk
+PRODUCT_MAKEFILES := $(LOCAL_DIR)/omni_h840.mk

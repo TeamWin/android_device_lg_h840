@@ -1,12 +1,33 @@
-$(call inherit-product, $(SRC_TARGET_DIR)/product/full_base_telephony.mk)
+# Release name
+PRODUCT_RELEASE_NAME := h840
 
-# Time Zone data Credits to desalesouche => http://forum.xda-developers.com/showpost.php?p=64850444&postcount=1204
-#PRODUCT_COPY_FILES += \
-#bionic/libc/zoneinfo/tzdata:recovery/root/system/usr/share/zoneinfo/tzdata
+# Inherit from the common Open Source product configuration
+$(call inherit-product, $(SRC_TARGET_DIR)/product/aosp_base_telephony.mk)
 
-PRODUCT_BUILD_PROP_OVERRIDES += \
-    PRODUCT_MODEL="LG-H840" \
-    TARGET_DEVICE="alicee"
+# Inherit from our custom product configuration
+$(call inherit-product, vendor/omni/config/common.mk)
 
-PRODUCT_NAME := omni_h840
+PRODUCT_PACKAGES += \
+    charger_res_images \
+    charger
+
+# Define time zone data path
+ifneq ($(wildcard bionic/libc/zoneinfo),)
+    TZDATAPATH := bionic/libc/zoneinfo
+else ifneq ($(wildcard system/timezone),)
+    TZDATAPATH := system/timezone/output_data/iana
+endif
+
+# Time Zone data for Recovery
+ifdef TZDATAPATH
+PRODUCT_COPY_FILES += \
+    $(TZDATAPATH)/tzdata:recovery/root/system/usr/share/zoneinfo/tzdata
+endif
+
+## Device identifier. This must come after all inclusions
 PRODUCT_DEVICE := h840
+PRODUCT_MODEL := LG-H840
+PRODUCT_NAME := omni_h840
+PRODUCT_BRAND := lge
+PRODUCT_MANUFACTURER := LGE
+TARGET_DEVICE="alicee"

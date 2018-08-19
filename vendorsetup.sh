@@ -1,1 +1,1 @@
-add_lunch_combo omni_h840-userdebug
+add_lunch_combo omni_h840-eng
