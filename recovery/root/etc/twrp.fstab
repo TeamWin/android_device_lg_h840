@@ -3,11 +3,12 @@
 /system		ext4	/dev/block/bootdevice/by-name/system
 /system_image	emmc	/dev/block/bootdevice/by-name/system	flags=backup=0
 /data		ext4	/dev/block/bootdevice/by-name/userdata	flags=encryptable=/dev/block/bootdevice/by-name/encrypt
-/userdata		ext4	/dev/block/bootdevice/by-name/userdata	flags=backup=1;display="User Data";encryptable=/dev/block/bootdevice/by-name/encrypt
 /cache		ext4	/dev/block/bootdevice/by-name/cache
 /misc		emmc	/dev/block/bootdevice/by-name/misc	flags=backup=1;display="Misc"
-/frp		emmc	/dev/block/bootdevice/by-name/config	flags=backup=1;display="Frp"
-/dsp		ext4	/dev/block/bootdevice/by-name/config	flags=backup=1;display="Dsp"
+/efs1		emmc	/dev/block/bootdevice/by-name/modemst1	flags=backup=1;display="EFS"
+/efs2		emmc	/dev/block/bootdevice/by-name/modemst2	flags=backup=1;subpartitionof=/efs1
+/efsg		emmc	/dev/block/bootdevice/by-name/fsg	flags=backup=1;subpartitionof=/efs1
+/frp		emmc	/dev/block/bootdevice/by-name/config	flags=backup=1;display="FRP"
 /firmware	vfat	/dev/block/bootdevice/by-name/modem	flags=display="Firmware";mounttodecrypt
 /persist	emmc	/dev/block/bootdevice/by-name/persist	flags=display="Persist";flashimg=1
 /persist-lg	emmc	/dev/block/bootdevice/by-name/drm	flags=mounttodecrypt
